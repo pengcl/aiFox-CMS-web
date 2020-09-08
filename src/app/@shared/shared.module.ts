@@ -88,7 +88,7 @@ import {COMPONENTS, ENTRY_COMPONENTS, PIPES} from './index';
   entryComponents: [ENTRY_COMPONENTS]
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<SharedModule> {
     return {
       ngModule: SharedModule,
       providers: []
