@@ -7,7 +7,7 @@ import {ProjectService} from '../project.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {JobService} from '../../job/job.service';
 import {EmployeeService} from '../../employee/employee.service';
-import {MatTableDataSource} from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface Post {
   name: string;

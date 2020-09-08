@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {SelectionModel} from '@angular/cdk/collections';
-import {MatTableDataSource} from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 import {ProjectService} from "../../project/project.service";
 import {SupplierService} from '../supplier.service';
 import {Employee} from "../../employee/list/list.page";

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
-import {MatTableDataSource} from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 import {DialogService} from '../../../../@core/modules/dialog';
 import {AuthService} from '../../../auth/auth.service';
 import {JobService} from '../job.service';
