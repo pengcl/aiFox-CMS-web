@@ -1,0 +1,173 @@
+<mat-card *ngIf="this.id !== '0' && data" class="profile">
+  <mat-card-header *ngIf="form">
+    <div mat-card-avatar class="header-image">
+      <ion-icon style="font-size: 72px" name="ios-appstore"></ion-icon>
+    </div>
+    <mat-card-title>{{form.get('name').value}}</mat-card-title>
+    <mat-card-subtitle>{{form.get('post').value | idToName : posts}}
+      <a *ngIf="form.get('project').value && projects" [routerLink]="['/admin/project/item',form.get('project').value]"
+         class="link">{{form.get('project').value | idToName : projects}}</a>
+      <a *ngIf="form.get('supplier').value && suppliers" [routerLink]="['/admin/supplier/item',form.get('supplier').value]" class="link">{{form.get('supplier').value | idToName : suppliers}}</a>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-footer class="page-extra">
+    <div>
+      <p>在项人员</p>
+      <p> 2 </p>
+    </div>
+    <div>
+      <p>在招人员</p>
+      <p> 4 </p>
+    </div>
+    <div>
+      <p>已用工时</p>
+      <p> 65 </p>
+    </div>
+    <div>
+      <p>剩余工时</p>
+      <p> 35 </p>
+    </div>
+  </mat-card-footer>
+</mat-card>
+
+<div class="content">
+  <ion-grid>
+    <ion-row>
+      <ion-col class="left-content" size="12">
+        <mat-tab-group>
+          <mat-tab label="基本信息">
+            <form [formGroup]="form">
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>岗位名称</mat-label>
+                      <input formControlName="name" matInput required>
+                      <mat-error
+                        *ngIf="form.get('name').hasError('maxLength') && !form.get('name').hasError('required')">
+                        企业名称必须小于 <strong>32位</strong>
+                      </mat-error>
+                      <mat-error
+                        *ngIf="form.get('name').hasError('minLength') && !form.get('name').hasError('required')">
+                        企业名称须大于 <strong>4位</strong>
+                      </mat-error>
+                      <mat-error *ngIf="form.get('name').hasError('required')">
+                        岗位名称是 <strong>必填</strong> 项
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>职位</mat-label>
+                      <mat-select formControlName="post" required>
+                        <mat-option *ngFor="let post of posts" [value]="post.id">
+                          {{post.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="form.get('post').hasError('required')">
+                        职位是 <strong>必填</strong> 项
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>学历</mat-label>
+                      <mat-select formControlName="qualification" required>
+                        <mat-option *ngFor="let qualification of qualifications" [value]="qualification.id">
+                          {{qualification.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="form.get('qualification').hasError('required')">
+                        学历是 <strong>必填</strong> 项
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>经验</mat-label>
+                      <input type="number" formControlName="years" matInput required>
+                      <mat-error
+                        *ngIf="form.get('years').hasError('min') && !form.get('years').hasError('required')">
+                        工作经验必须大于 <strong>0</strong>
+                      </mat-error>
+                      <mat-error *ngIf="form.get('years').hasError('required')">
+                        经验是 <strong>必填</strong> 项
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>项目</mat-label>
+                      <mat-select formControlName="project" required>
+                        <mat-option *ngFor="let project of projects" [value]="project.id">
+                          {{project.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="form.get('project').hasError('required')">
+                        项目是 <strong>必填</strong> 项
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>供应商</mat-label>
+                      <mat-select formControlName="supplier" required>
+                        <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">
+                          {{supplier.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="form.get('supplier').hasError('required')">
+                        供应商是 <strong>必填</strong> 项
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>人数</mat-label>
+                      <input type="number" formControlName="nums" matInput required>
+                      <mat-error
+                        *ngIf="form.get('nums').hasError('min') && !form.get('nums').hasError('required')">
+                        人数必须大于 <strong>0</strong>
+                      </mat-error>
+                      <mat-error *ngIf="form.get('nums').hasError('required')">
+                        人数是 <strong>必填</strong> 项
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>到岗时间</mat-label>
+                      <input formControlName="inTime" [matDatepicker]="picker" matInput required>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngIf="form.get('inTime').hasError('required')">
+                        到岗时间是 <strong>必填</strong> 项
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>级别</mat-label>
+                      <mat-select formControlName="level" required>
+                        <mat-option *ngFor="let level of levels" [value]="level.id">
+                          {{level.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="form.get('level').hasError('required')">
+                        级别是 <strong>必填</strong> 项
+                      </mat-error>
+                    </mat-form-field>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+              <button (click)="save()" mat-raised-button color="primary">保存</button>
+            </form>
+          </mat-tab>
+          <mat-tab *ngIf="id !== '0'" label="在岗"></mat-tab>
+          <mat-tab *ngIf="id !== '0'" label="试用"></mat-tab>
+        </mat-tab-group>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

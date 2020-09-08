@@ -1,0 +1,183 @@
+<div class="container">
+  <div class="statistics">
+    <div class="statistic-item">
+      <div class="statistic">
+        <div class="statistic-box">
+          <div class="statistic-body"><span class="counter counter-link">150</span></div>
+          <div class="statistic-ft">
+            <i class="icons icon-project" style="background-color: red"></i>
+            <span class="label">供应商</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="statistic-item">
+      <div class="statistic">
+        <div class="statistic-box">
+          <div class="statistic-body"><span class="counter counter-link">150</span></div>
+          <div class="statistic-ft">
+            <i class="icons icon-users" style="background-color: red"></i>
+            <span class="label">外包人员</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="statistic-item">
+      <div class="statistic">
+        <div class="statistic-box">
+          <div class="statistic-body"><span class="counter counter-link">150</span></div>
+          <div class="statistic-ft">
+            <i class="icons icon-users" style="background-color: red"></i>
+            <span class="label">试用中的外包人员</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<form class="search-form">
+    <mat-form-field>
+      <mat-label>可通过 姓名/ID 进行搜索</mat-label>
+      <input matInput>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <div class="actions">
+      <button mat-raised-button color="primary">新增</button>
+      <button mat-raised-button color="warn">删除</button>
+    </div>
+  </form>-->
+  <ion-grid class="table-actions">
+    <ion-row>
+      <ion-col size="3">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="搜索外包人员名称">
+        </mat-form-field>
+      </ion-col>
+      <ion-col size="3">
+        <mat-form-field>
+          <mat-label>项目</mat-label>
+          <mat-select (valueChange)="valueChange('projects',$event)">
+            <mat-option [value]="''">
+              所有
+            </mat-option>
+            <mat-option *ngFor="let item of projects" [value]="item.id">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ion-col>
+      <ion-col size="3">
+        <mat-form-field>
+          <mat-label>供应商</mat-label>
+          <mat-select (valueChange)="valueChange('suppliers',$event)">
+            <mat-option [value]="''">
+              所有
+            </mat-option>
+            <mat-option *ngFor="let item of suppliers" [value]="item.id">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ion-col>
+      <ion-col size="3">
+        <div class="actions">
+          <button mat-raised-button color="primary">新增</button>
+          <button mat-raised-button color="warn">删除</button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <table *ngIf="dataSource" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef style="width: 50px">
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()"
+                      [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)"
+                      [aria-label]="checkboxLabel(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> 索引.</th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> 名称</th>
+      <td mat-cell *matCellDef="let element"><a [routerLink]="['/admin/employee/item',element.id]" class="link"
+                                                href="javascript:;">{{element.name}}</a></td>
+    </ng-container>
+
+    <!-- Post Column -->
+    <ng-container matColumnDef="post">
+      <th mat-header-cell *matHeaderCellDef> 岗位</th>
+      <td mat-cell *matCellDef="let element">{{element.post.name}}</td>
+    </ng-container>
+
+    <!-- Level Column -->
+    <ng-container matColumnDef="level">
+      <th mat-header-cell *matHeaderCellDef> 级别</th>
+      <td mat-cell *matCellDef="let element">{{element.level.name}}</td>
+    </ng-container>
+
+    <!-- projects Column -->
+    <ng-container matColumnDef="projects">
+      <th mat-header-cell *matHeaderCellDef> 项目</th>
+      <td mat-cell *matCellDef="let element"><a [routerLink]="['/admin/project/item',element.projects[0].id]" class="link"
+                                                href="javascript:;">{{element.projects.length > 0 ? element.projects[0].name : '无'}}</a>
+      </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="inTime">
+      <th mat-header-cell *matHeaderCellDef> 入厂时间</th>
+      <td mat-cell *matCellDef="let element">{{element.inTime | date : 'yyyy-MM-dd'}}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="outTime">
+      <th mat-header-cell *matHeaderCellDef> 出厂时间</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.outTime | date : 'yyyy-MM-dd'}}
+      </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="period">
+      <th mat-header-cell *matHeaderCellDef> 工龄</th>
+      <td mat-cell *matCellDef="let element"> {{element.period}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="attendance">
+      <th mat-header-cell *matHeaderCellDef> 考勤</th>
+      <td mat-cell *matCellDef="let element"> {{element.attendance}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> 状态</th>
+      <td mat-cell *matCellDef="let element" [innerHTML]="element.status | userStatus"></td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> 操作</th>
+      <td class="actions" mat-cell *matCellDef="let element">
+        <a class="link" *ngIf="element.status === 'want'" href="javascript:;">同意</a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        (click)="selection.toggle(row)">
+    </tr>
+  </table>
+  <mat-paginator showFirstLastButtons></mat-paginator>
+</div>

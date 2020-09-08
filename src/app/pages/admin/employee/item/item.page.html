@@ -1,0 +1,372 @@
+<mat-card *ngIf="form" class="profile">
+  <mat-card-header>
+    <div mat-card-avatar class="header-image">
+      <img [src]="'/api' + form.avatar.url">
+    </div>
+    <mat-card-title>{{form.name}}</mat-card-title>
+    <mat-card-subtitle>{{form.post.name}} <span>{{form.level.name}}</span></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-footer class="page-extra">
+    <div>
+      <p>项目数</p>
+      <p>{{form.projects.length}}</p>
+    </div>
+    <div>
+      <p>团队成员</p>
+      <p> 4 </p>
+    </div>
+    <div>
+      <p>上月考勤</p>
+      <p> 20 <span>/ 24</span></p>
+    </div>
+  </mat-card-footer>
+</mat-card>
+
+<div class="content">
+  <ion-grid>
+    <ion-row>
+      <ion-col class="left-content" size="12">
+        <mat-tab-group>
+          <mat-tab label="基本信息">
+            <form *ngIf="form">
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>姓名</mat-label>
+                      <input [value]="form.name" matInput placeholder="姓名" required readonly>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>性别</mat-label>
+                      <input [value]="form.sex" matInput placeholder="性别" required readonly>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>身份证</mat-label>
+                      <input [value]="form.passport" matInput placeholder="身份证" required readonly>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>毕业院校</mat-label>
+                      <input [value]="form.school" matInput placeholder="毕业院校" required readonly>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>学历</mat-label>
+                      <input [value]="form.education" matInput placeholder="学历" required readonly>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>专业</mat-label>
+                      <input [value]="form.major" matInput placeholder="专业" required readonly>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>项目</mat-label>
+                      <input [value]="form.projects[0].name" matInput placeholder="项目" required readonly>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>岗位</mat-label>
+                      <input [value]="form.post.name" matInput placeholder="岗位" required readonly>
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col class="left-content" size="6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>级别</mat-label>
+                      <input [value]="form.level.name" matInput placeholder="级别" required readonly>
+                    </mat-form-field>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
+          </mat-tab>
+          <mat-tab label="项目">
+            <table *ngIf="source.project" mat-table [dataSource]="source.project" class="mat-elevation-z8">
+              <!-- Checkbox Column -->
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef style="width: 50px">
+                  <mat-checkbox (change)="$event ? masterToggle('project') : null"
+                                [checked]="selection['project'].hasValue() && isAllSelected('project')"
+                                [indeterminate]="selection['project'].hasValue() && !isAllSelected('project')"
+                                [aria-label]="checkboxLabel('project')">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection['project'].toggle(row) : null"
+                                [checked]="selection['project'].isSelected(row)"
+                                [aria-label]="checkboxLabel('project',row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> 索引.</th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> 名称</th>
+                <td mat-cell *matCellDef="let element">
+                  <a [routerLink]="['/admin/project/item',element.id]" class="link" href="javascript:;">{{element.name}}</a>
+                </td>
+              </ng-container>
+
+              <!-- contract Column -->
+              <ng-container matColumnDef="contract">
+                <th mat-header-cell *matHeaderCellDef> 合同</th>
+                <td mat-cell *matCellDef="let element">{{element.contract.name}}</td>
+              </ng-container>
+
+              <!-- department Column -->
+              <ng-container matColumnDef="department">
+                <th mat-header-cell *matHeaderCellDef> 部门</th>
+                <td mat-cell *matCellDef="let element">{{element.department.name}}</td>
+              </ng-container>
+
+              <!-- suppliers Column -->
+              <ng-container matColumnDef="suppliers">
+                <th mat-header-cell *matHeaderCellDef> 供应商</th>
+                <td mat-cell *matCellDef="let element">
+                  <a [routerLink]="['/admin/supplier/list']"
+                     [queryParams]="{supplier:element.id}"
+                     class="link" href="javascript:;">{{element.suppliers.length}}</a>
+                </td>
+              </ng-container>
+
+              <!-- employee Column -->
+              <ng-container matColumnDef="employee">
+                <th mat-header-cell *matHeaderCellDef> 负责人</th>
+                <td mat-cell *matCellDef="let element">
+                  <a [routerLink]="['/admin/employee/item',element.employee.id]" class="link" href="javascript:;">{{element.employee.name}}</a>
+                </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="employees">
+                <th mat-header-cell *matHeaderCellDef> 外包人员</th>
+                <td mat-cell *matCellDef="let element">
+                  <a [routerLink]="['/admin/employee/list']"
+                     [queryParams]="{supplier:'',type:'',project:element.id}"
+                     class="link" href="javascript:;">{{element.employees.length}}</a>
+                </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> 状态</th>
+                <td mat-cell *matCellDef="let element" [innerHTML]="element.status | projectStatus"></td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayed['project']"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayed['project'];"
+                  (click)="selection['project'].toggle(row)">
+              </tr>
+            </table>
+            <mat-paginator showFirstLastButtons></mat-paginator>
+          </mat-tab>
+          <mat-tab label="面试">
+            <table *ngIf="source.interview" mat-table [dataSource]="source.interview" class="mat-elevation-z8">
+              <!-- Checkbox Column -->
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef style="width: 50px">
+                  <mat-checkbox (change)="$event ? masterToggle('interview') : null"
+                                [checked]="selection['interview'].hasValue() && isAllSelected('interview')"
+                                [indeterminate]="selection['interview'].hasValue() && !isAllSelected('interview')"
+                                [aria-label]="checkboxLabel('interview')">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection['interview'].toggle(row) : null"
+                                [checked]="selection['interview'].isSelected(row)"
+                                [aria-label]="checkboxLabel('interview',row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> 索引.</th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="project">
+                <th mat-header-cell *matHeaderCellDef> 项目</th>
+                <td mat-cell *matCellDef="let element">
+                  <a [routerLink]="['/admin/project/item',element.project.id]" class="link"
+                     href="javascript:;">{{element.project.name}}</a>
+                </td>
+              </ng-container>
+
+              <!-- contract Column -->
+              <ng-container matColumnDef="supplier">
+                <th mat-header-cell *matHeaderCellDef> 供应商</th>
+                <td mat-cell *matCellDef="let element">
+                  <a [routerLink]="['/admin/supplier/item',element.supplier.id]" class="link"
+                     href="javascript:;">{{element.supplier.name}}</a>
+                </td>
+              </ng-container>
+
+              <!-- department Column -->
+              <ng-container matColumnDef="job">
+                <th mat-header-cell *matHeaderCellDef> 岗位</th>
+                <td mat-cell *matCellDef="let element">{{element.job.name}}</td>
+              </ng-container>
+
+              <!-- suppliers Column -->
+              <ng-container matColumnDef="level">
+                <th mat-header-cell *matHeaderCellDef> 级别</th>
+                <td mat-cell *matCellDef="let element">{{element.level.name}}</td>
+              </ng-container>
+
+              <!-- employee Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> 状态</th>
+                <td mat-cell *matCellDef="let element" [innerHTML]="element.status | projectStatus"></td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="face_test">
+                <th mat-header-cell *matHeaderCellDef> 面试</th>
+                <td mat-cell *matCellDef="let element">{{element.face_test}}</td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="machine_test">
+                <th mat-header-cell *matHeaderCellDef> 机试</th>
+                <td mat-cell *matCellDef="let element">{{element.machine_test}}</td>
+              </ng-container>
+
+              <!-- Written_test Column -->
+              <ng-container matColumnDef="written_test">
+                <th mat-header-cell *matHeaderCellDef> 笔试</th>
+                <td mat-cell *matCellDef="let element">{{element.written_test}}</td>
+              </ng-container>
+
+              <!-- Mark Column -->
+              <ng-container matColumnDef="mark">
+                <th mat-header-cell *matHeaderCellDef> 评语</th>
+                <td mat-cell *matCellDef="let element">{{element.mark.slice(0, 10) + '...'}}</td>
+              </ng-container>
+
+              <!-- Result Column -->
+              <ng-container matColumnDef="result">
+                <th mat-header-cell *matHeaderCellDef> 结果</th>
+                <td mat-cell *matCellDef="let element" [innerHTML]="element.result | projectStatus"></td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayed['interview']"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayed['interview'];"
+                  (click)="selection['interview'].toggle(row)">
+              </tr>
+            </table>
+            <mat-paginator showFirstLastButtons></mat-paginator>
+          </mat-tab>
+          <mat-tab label="考勤">
+            <table *ngIf="source.attendance" mat-table [dataSource]="source.attendance" class="mat-elevation-z8">
+              <!-- Checkbox Column -->
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef style="width: 50px">
+                  <mat-checkbox (change)="$event ? masterToggle('attendance') : null"
+                                [checked]="selection['attendance'].hasValue() && isAllSelected('attendance')"
+                                [indeterminate]="selection['attendance'].hasValue() && !isAllSelected('attendance')"
+                                [aria-label]="checkboxLabel('attendance')">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection['attendance'].toggle(row) : null"
+                                [checked]="selection['attendance'].isSelected(row)"
+                                [aria-label]="checkboxLabel('attendance',row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> 索引.</th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="employee">
+                <th mat-header-cell *matHeaderCellDef> 姓名</th>
+                <td mat-cell *matCellDef="let element">{{element.employee.name}}</td>
+              </ng-container>
+
+              <!-- contract Column -->
+              <ng-container matColumnDef="project">
+                <th mat-header-cell *matHeaderCellDef> 项目</th>
+                <td mat-cell *matCellDef="let element">
+                  <a [routerLink]="['/admin/project/item',element.project.id]" class="link"
+                     href="javascript:;">{{element.project.name}}</a>
+                </td>
+              </ng-container>
+
+              <!-- department Column -->
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> 类型</th>
+                <td mat-cell *matCellDef="let element">
+                  <span class="text-success" *ngIf="element.type === 'normal'">正常</span>
+                  <span class="text-warn" *ngIf="element.type === 'early'">早退</span>
+                  <span class="text-warn" *ngIf="element.type === 'late'">迟到</span>
+                </td>
+              </ng-container>
+
+              <!-- suppliers Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> 状态</th>
+                <td mat-cell *matCellDef="let element">
+                  <span class="{{element.status === 'normal' ? 'text-success' : 'text-warn'}}">{{element.status === 'normal' ? '正常' : '异常'}}</span>
+                </td>
+              </ng-container>
+
+              <!-- employee Column -->
+              <ng-container matColumnDef="address">
+                <th mat-header-cell *matHeaderCellDef> 地址</th>
+                <td mat-cell *matCellDef="let element">{{element.address}}</td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="start">
+                <th mat-header-cell *matHeaderCellDef> 签到</th>
+                <td mat-cell *matCellDef="let element">{{element.start | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="end">
+                <th mat-header-cell *matHeaderCellDef> 签退</th>
+                <td mat-cell *matCellDef="let element">{{element.end | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+              </ng-container>
+
+              <!-- Mark Column -->
+              <ng-container matColumnDef="mark">
+                <th mat-header-cell *matHeaderCellDef> 备注</th>
+                <td mat-cell *matCellDef="let element">{{element.mark.slice(0, 10) + '...'}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayed['attendance']"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayed['attendance'];"
+                  (click)="selection['attendance'].toggle(row)">
+              </tr>
+            </table>
+            <mat-paginator showFirstLastButtons></mat-paginator>
+          </mat-tab>
+        </mat-tab-group>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

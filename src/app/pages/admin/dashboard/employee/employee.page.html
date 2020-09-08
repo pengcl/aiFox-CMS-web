@@ -1,0 +1,210 @@
+<mat-sidenav-container>
+  <mat-tab-group>
+    <mat-tab label="签到">
+      <form [formGroup]="form">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <app-timer></app-timer>
+              <!--<mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>当前时间</mat-label>
+                <input formControlName="time" matInput required>
+                <mat-error
+                  *ngIf="form.get('code').hasError('maxLength') && !form.get('code').hasError('required')">
+                  验证码不能小于 <strong>4位</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="form.get('code').hasError('minLength') && !form.get('code').hasError('required')">
+                  验证码不能大于 <strong>4位</strong>
+                </mat-error>
+                <mat-error *ngIf="form.get('code').hasError('required')">
+                  验证码是 <strong>必填</strong> 项
+                </mat-error>
+              </mat-form-field>-->
+            </ion-col><ion-col size="6"></ion-col>
+            <ion-col class="left-content" size="6">
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>验证码</mat-label>
+                <input formControlName="code" matInput required>
+                <mat-error
+                  *ngIf="form.get('code').hasError('maxLength') && !form.get('code').hasError('required')">
+                  验证码不能小于 <strong>4位</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="form.get('code').hasError('minLength') && !form.get('code').hasError('required')">
+                  验证码不能大于 <strong>4位</strong>
+                </mat-error>
+                <mat-error *ngIf="form.get('code').hasError('required')">
+                  验证码是 <strong>必填</strong> 项
+                </mat-error>
+              </mat-form-field>
+            </ion-col>
+            <ion-col size="6"></ion-col>
+            <ion-col size="6">
+              <button mat-raised-button color="primary" style="margin-right: 10px">签到</button>
+              <button mat-raised-button color="warn">请假</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </mat-tab>
+    <mat-tab label="记录">
+      <mat-grid-list [cols]="7" rowHeight="fit">
+        <mat-grid-tile colspan="4">
+          <div class="date-title">
+            <div class="title-time" style="font-size: 36px">{{timer | date : 'HH:mm:ss'}}</div>
+            <div class="title-year" style="color: #999;font-size: 24px">{{timer | date : 'yyyy-MM-dd'}}</div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile *ngFor="let tile of tiles" [style.background]="tile.color">
+          <span class="date">{{tile.data}}</span>
+          <span *ngIf="tile.disabled">{{tile.text}}</span>
+          <ion-fab *ngIf="!tile.disabled && tile.text==='签到'" horizontal="center" vertical="center" slot="fixed">
+            <ion-fab-button [color]="tile.fabColor">
+              {{tile.text}}
+            </ion-fab-button>
+            <ion-fab-list side="top">
+              <ion-fab-button color="primary">
+                签到
+              </ion-fab-button>
+            </ion-fab-list>
+            <ion-fab-list side="end">
+              <ion-fab-button color="dark">
+                工时
+              </ion-fab-button>
+            </ion-fab-list>
+            <ion-fab-list side="bottom">
+              <ion-fab-button color="secondary">
+                请假
+              </ion-fab-button>
+            </ion-fab-list>
+            <ion-fab-list side="start">
+              <ion-fab-button color="light">
+                调休
+              </ion-fab-button>
+            </ion-fab-list>
+          </ion-fab>
+          <ion-fab *ngIf="!tile.disabled && tile.text==='异常'" horizontal="center" vertical="center" slot="fixed">
+            <ion-fab-button [color]="tile.fabColor">
+              {{tile.text}}
+            </ion-fab-button>
+            <ion-fab-list side="top">
+              <ion-fab-button color="primary">
+                签到
+              </ion-fab-button>
+            </ion-fab-list>
+            <ion-fab-list side="end">
+              <ion-fab-button color="dark">
+                工时
+              </ion-fab-button>
+            </ion-fab-list>
+            <ion-fab-list side="bottom">
+              <ion-fab-button color="secondary">
+                请假
+              </ion-fab-button>
+            </ion-fab-list>
+            <ion-fab-list side="start">
+              <ion-fab-button color="light">
+                调休
+              </ion-fab-button>
+            </ion-fab-list>
+          </ion-fab>
+          <ion-fab *ngIf="!tile.disabled && tile.text==='缺勤'" horizontal="center" vertical="center" slot="fixed">
+            <ion-fab-button [color]="tile.fabColor">
+              {{tile.text}}
+            </ion-fab-button>
+            <ion-fab-list side="top">
+              <ion-fab-button color="primary">
+                签到
+              </ion-fab-button>
+            </ion-fab-list>
+            <ion-fab-list side="end">
+              <ion-fab-button color="dark">
+                工时
+              </ion-fab-button>
+            </ion-fab-list>
+            <ion-fab-list side="bottom">
+              <ion-fab-button color="secondary">
+                请假
+              </ion-fab-button>
+            </ion-fab-list>
+            <ion-fab-list side="start">
+              <ion-fab-button color="light">
+                调休
+              </ion-fab-button>
+            </ion-fab-list>
+          </ion-fab>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-tab>
+  </mat-tab-group>
+  <mat-sidenav mode="side" opened position="end">
+    <ion-list>
+      <ion-list-header><span matBadge="15" matBadgeColor="warn" matBadgeOverlap="false">我的待办</span></ion-list-header>
+      <ion-item detail>
+        <ion-label>
+          <h3>招聘前端工程师</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          李刚
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+      <ion-item detail>
+        <ion-label>
+          <h3>张永刚的入厂申请</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          李刚
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+      <ion-item detail lines="none">
+        <ion-label>
+          <h3>招聘JAVA工程师</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          韩梅梅
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+    </ion-list>
+    <mat-divider></mat-divider>
+    <ion-list>
+      <ion-list-header><span matBadge="15" matBadgeColor="primary" matBadgeOverlap="false">我的请求</span></ion-list-header>
+      <ion-item detail>
+        <ion-label>
+          <h3>招聘前端工程师</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          李刚
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+      <ion-item detail>
+        <ion-label>
+          <h3>张永刚的入厂申请</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          李刚
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+      <ion-item detail lines="none">
+        <ion-label>
+          <h3>招聘JAVA工程师</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          韩梅梅
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+    </ion-list>
+  </mat-sidenav>
+</mat-sidenav-container>

@@ -1,0 +1,224 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+
+$primary: #3f51b5;
+$warn: #f44336;
+$success: #07c160;
+$disabled: rgba(0, 0, 0, .26);
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.container {
+  padding: 16px;
+}
+
+table {
+  width: 100%;
+
+  td {
+    button {
+      margin-right: 8px !important;
+      font-size: 12px !important;
+      line-height: 24px !important;
+    }
+  }
+}
+
+ion-note {
+  font-size: 12px;
+  text-align: right;
+  align-self: center;
+
+  p {
+    margin: 5px 0;
+  }
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.text-primary {
+  color: $primary;
+}
+
+.text-warn {
+  color: $warn;
+}
+
+.text-success {
+  color: $success;
+}
+
+.text-finished {
+  color: $success;
+}
+
+.text-waiting {
+  color: $disabled;
+}
+
+.text-fail {
+  color: $warn;
+}
+
+.text-being {
+  color: $primary;
+}
+
+.text-disabled {
+  color: $disabled;
+}
+
+.link {
+  color: #006eff;
+  text-decoration: none;
+}
+
+.search-form {
+  display: flex;
+
+  .mat-form-field, .actions {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .mat-form-field {
+    .mat-form-field-wrapper {
+    }
+  }
+
+  .actions {
+    flex: 1;
+    align-self: center;
+    text-align: right;
+    margin-right: 0;
+
+    button {
+      margin-left: 10px;
+    }
+  }
+}
+
+mat-card.profile {
+  border-radius: 0;
+
+  [mat-card-avatar] {
+    width: 72px;
+    height: 72px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  mat-card-header {
+    display: flex;
+
+    mat-card-title {
+      margin-top: 10px;
+    }
+
+    &::ng-deep {
+      mat-card-header-text {
+        align-self: center;
+      }
+    }
+  }
+
+  .page-extra {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    white-space: nowrap;
+    min-width: 242px;
+    margin: 0 0 0 88px;
+
+    & > div {
+      position: relative;
+      display: inline-block;
+      padding: 0 32px;
+
+      & > p:first-child {
+        margin-bottom: 4px;
+        color: #666;
+        font-size: 14px;
+        line-height: 22px;
+      }
+
+      & > p {
+        margin: 0;
+        color: #333;
+        font-size: 30px;
+        line-height: 38px;
+
+        & > span {
+          color: #666;
+          font-size: 20px;
+        }
+
+        & > sub {
+          color: #666;
+          font-size: 14px;
+          vertical-align: baseline;
+        }
+      }
+
+      &::after {
+        position: absolute;
+        top: 8px;
+        right: 0;
+        width: 1px;
+        height: 40px;
+        background-color: #999;
+        content: '';
+      }
+    }
+
+    & > div:last-child {
+      padding-right: 0;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+ion-popover {
+  --width: 400px !important;
+}
+
+.button-row {
+  margin: 16px 0;
+
+  button {
+    margin-right: 8px;
+  }
+}
+
+.actions {
+  a {
+    margin: 0 8px 0 0;
+  }
+}

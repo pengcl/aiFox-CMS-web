@@ -1,0 +1,183 @@
+<div class="container">
+  <div class="statistics">
+    <div class="statistic-item">
+      <div class="statistic">
+        <div class="statistic-box">
+          <div class="statistic-body"><span class="counter counter-link">150</span></div>
+          <div class="statistic-ft">
+            <i class="icons icon-project" style="background-color: red"></i>
+            <span class="label">项目</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="statistic-item">
+      <div class="statistic">
+        <div class="statistic-box">
+          <div class="statistic-body"><span class="counter counter-link">150</span></div>
+          <div class="statistic-ft">
+            <i class="icons icon-users" style="background-color: red"></i>
+            <span class="label">进行中的</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="statistic-item">
+      <div class="statistic">
+        <div class="statistic-box">
+          <div class="statistic-body"><span class="counter counter-link">150</span></div>
+          <div class="statistic-ft">
+            <i class="icons icon-users" style="background-color: red"></i>
+            <span class="label">已完成的</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="statistic-item">
+      <div class="statistic">
+        <div class="statistic-box">
+          <div class="statistic-body"><span class="counter counter-link">150</span></div>
+          <div class="statistic-ft">
+            <i class="icons icon-users" style="background-color: red"></i>
+            <span class="label">即将开始的</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ion-grid *ngIf="user.type !== 'employee'" class="table-actions">
+    <ion-row>
+      <ion-col size="3">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="搜索岗位名称">
+        </mat-form-field>
+      </ion-col>
+      <ion-col size="3">
+        <mat-form-field>
+          <mat-label>项目</mat-label>
+          <mat-select (valueChange)="valueChange('projects',$event)">
+            <mat-option [value]="''">
+              所有
+            </mat-option>
+            <mat-option *ngFor="let item of projects" [value]="item.id">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ion-col>
+      <ion-col size="3">
+        <mat-form-field>
+          <mat-label>供应商</mat-label>
+          <mat-select (valueChange)="valueChange('suppliers',$event)">
+            <mat-option [value]="''">
+              所有
+            </mat-option>
+            <mat-option *ngFor="let item of suppliers" [value]="item.id">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ion-col>
+      <ion-col size="3">
+        <div class="actions">
+          <button [routerLink]="['/admin/job/item','0']" mat-raised-button color="primary">新增</button>
+          <button mat-raised-button color="warn">删除</button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <table *ngIf="dataSource" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef style="width: 50px">
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()"
+                      [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)"
+                      [aria-label]="checkboxLabel(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> 索引.</th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> 名称</th>
+      <td mat-cell *matCellDef="let element"><a [routerLink]="['/admin/job/item',element.id]" class="link" href="javascript:;">{{element.name}}</a></td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="post">
+      <th mat-header-cell *matHeaderCellDef> 职位</th>
+      <td mat-cell *matCellDef="let element">{{element.post.name}}</td>
+    </ng-container>
+
+    <!-- contract Column -->
+    <ng-container matColumnDef="level">
+      <th mat-header-cell *matHeaderCellDef> 级别</th>
+      <td mat-cell *matCellDef="let element">{{element.level.name}}</td>
+    </ng-container>
+
+    <!-- contract Column -->
+    <ng-container matColumnDef="qualification">
+      <th mat-header-cell *matHeaderCellDef> 学历</th>
+      <td mat-cell *matCellDef="let element">{{element.qualification.name}}</td>
+    </ng-container>
+
+    <!-- department Column -->
+    <ng-container matColumnDef="project">
+      <th mat-header-cell *matHeaderCellDef> 项目</th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="['/admin/project/item',element.project.id]" class="link" href="javascript:;">{{element.project.name}}</a>
+      </td>
+    </ng-container>
+
+    <!-- suppliers Column -->
+    <ng-container matColumnDef="supplier">
+      <th mat-header-cell *matHeaderCellDef> 供应商</th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="['/admin/supplier/item',element.supplier.id]" class="link" href="javascript:;">{{element.supplier.name}}</a>
+      </td>
+    </ng-container>
+
+    <!-- employee Column -->
+    <ng-container matColumnDef="years">
+      <th mat-header-cell *matHeaderCellDef> 工作经验</th>
+      <td mat-cell *matCellDef="let element">{{element.years}}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="nums">
+      <th mat-header-cell *matHeaderCellDef> 人数</th>
+      <td mat-cell *matCellDef="let element">{{element.nums}}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> 单价</th>
+      <td mat-cell *matCellDef="let element"><sub>￥</sub>{{element.post.price * element.level.rate}}<sub>.00</sub></td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> 操作</th>
+      <td class="actions" mat-cell *matCellDef="let element">
+        <button [routerLink]="['/admin/job/item',element.id]" mat-raised-button color="primary">编辑</button>
+        <button (click)="delete(element.id)" mat-raised-button color="warn">删除</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        (click)="selection.toggle(row)">
+    </tr>
+  </table>
+  <mat-paginator showFirstLastButtons></mat-paginator>
+</div>

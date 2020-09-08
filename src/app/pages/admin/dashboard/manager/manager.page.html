@@ -1,0 +1,442 @@
+<!--<mat-grid-list cols="3" rowHeight="fit" gutterSize="0">
+  <mat-grid-tile colspan="2">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>预警(7)</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-tab-group>
+          <mat-tab label="项目(2)">项目</mat-tab>
+          <mat-tab label="人员(5)">人员</mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>统计</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-tab-group>
+          <mat-tab label="项目(2)">项目</mat-tab>
+          <mat-tab label="人员(8)">人员</mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>我的待办</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>我的请求</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ion-list>
+          <ion-item detail>
+            <ion-label>
+              <h3>页面修改</h3>
+              <p>左侧图标用于区分不同的类型</p>
+            </ion-label>
+            <ion-note>
+              添加用工请求
+              <p>2019-12-28</p>
+            </ion-note>
+          </ion-item>
+        </ion-list>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>-->
+<!--
+<mat-tab-group>
+  <mat-tab label="项目">1</mat-tab>
+  <mat-tab label="人员">2</mat-tab>
+</mat-tab-group>
+<div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="9">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>预警</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-tab-group>
+              <mat-tab label="项目">1</mat-tab>
+              <mat-tab label="人员">2</mat-tab>
+            </mat-tab-group>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>统计</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-tab-group>
+              <mat-tab label="项目">1</mat-tab>
+              <mat-tab label="人员">2</mat-tab>
+            </mat-tab-group>
+          </mat-card-content>
+        </mat-card>
+      </ion-col>
+      <ion-col size="3">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>我的待办事项</mat-card-title>
+            <mat-card-subtitle>更多</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <ion-list>
+              <ion-item detail>
+                <ion-label>
+                  <h2>签到</h2>
+                  <p>签到状态：未签到</p>
+                </ion-label>
+                <ion-note>补签<p style="margin: 0">2019-11-07</p></ion-note>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>
+                  <h2>工时</h2>
+                  <p>今日工时：未提交</p>
+                </ion-label>
+                <ion-note>补签<p style="margin: 0">2019-11-07</p></ion-note>
+              </ion-item>
+            </ion-list>
+          </mat-card-content>
+        </mat-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+-->
+<mat-sidenav-container>
+  <mat-sidenav-content #content>
+    <mat-tab-group style="height: 40%">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span matBadge="15" matBadgeColor="warn" matBadgeOverlap="false">预警</span>
+        </ng-template>
+        <ion-grid class="alert">
+          <ion-row>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="ios-alarm" color="danger"></ion-icon>
+                  </i>
+                  <div class="label" style="color: #ff0000">3</div>
+                  <div class="desc">剩余工时不足</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="ios-people" color="danger"></ion-icon>
+                  </i>
+                  <div class="label" style="color: #ff0000">2</div>
+                  <div class="desc">项目人员不足</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="ios-people" color="danger"></ion-icon>
+                  </i>
+                  <div class="label" style="color: #ff0000">10</div>
+                  <div class="desc">空缺</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="ios-people" color="success"></ion-icon>
+                  </i>
+                  <div class="label" style="color: #10dc60">0</div>
+                  <div class="desc">简历不完整</div>
+                </a>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-tab-group style="height: 60%">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          统计
+        </ng-template>
+        <ion-grid>
+          <ion-row>
+            <ion-col [size]="1" style="align-self: center">
+              <div style="text-align: center">项目</div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="logo-angular" style="color: #839bd2"></ion-icon>
+                  </i>
+                  <div class="label">19</div>
+                  <div class="desc">总项目</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="logo-angular" style="color: #64c0cb"></ion-icon>
+                  </i>
+                  <div class="label">4</div>
+                  <div class="desc">参与项目</div>
+                </a>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col [size]="1" style="align-self: center">
+              <div style="text-align: center">人员</div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="ios-people" style="color: #d6b993;"></ion-icon>
+                  </i>
+                  <div class="label">197</div>
+                  <div class="desc">需要外包人员</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize * 2">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="ios-people" style="color: #64c0cb"></ion-icon>
+                  </i>
+                  <div class="label">122 / 100 / 22</div>
+                  <div class="desc">到岗外包人员 / 正式 / 试用</div>
+                  <div class="rate">
+                    <span class="rate-count">78%</span>
+                    <span class="rate-label">到岗率</span>
+                  </div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="ios-people" style="color: #e58f9d"></ion-icon>
+                  </i>
+                  <div class="label">75</div>
+                  <div class="desc">空缺外包人员</div>
+                </a>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col [size]="1" style="align-self: center">
+              <div style="text-align: center">面试</div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="md-people" style="color: #d6b993"></ion-icon>
+                  </i>
+                  <div class="label">200</div>
+                  <div class="desc">总数</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="md-people" style="color: #d6b993"></ion-icon>
+                  </i>
+                  <div class="label">150</div>
+                  <div class="desc">通过</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="md-people" style="color: #e58f9d"></ion-icon>
+                  </i>
+                  <div class="label">50</div>
+                  <div class="desc">申请入厂</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="md-people" style="color: #e58f9d"></ion-icon>
+                  </i>
+                  <div class="label">50</div>
+                  <div class="desc">未通过</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="md-people" style="color: #e58f9d"></ion-icon>
+                  </i>
+                  <div class="label">13/5</div>
+                  <div class="desc">拒绝/未到</div>
+                </a>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col [size]="1" style="align-self: center">
+              <div style="text-align: center">考勤</div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="calendar" style="color: #d6b993"></ion-icon>
+                  </i>
+                  <div class="label">75</div>
+                  <div class="desc">迟到</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="calendar" style="color: #d6b993"></ion-icon>
+                  </i>
+                  <div class="label">3</div>
+                  <div class="desc">早退</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="calendar" style="color: #e58f9d"></ion-icon>
+                  </i>
+                  <div class="label">1</div>
+                  <div class="desc">缺勤</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="calendar" style="color: #73cad4"></ion-icon>
+                  </i>
+                  <div class="label">1</div>
+                  <div class="desc">请假</div>
+                </a>
+              </div>
+            </ion-col>
+            <ion-col [size]="colSize">
+              <div class="menu-item">
+                <a href="javascript:;" class="setting-box">
+                  <i class="icons">
+                    <ion-icon name="calendar" style="color: #73cad4"></ion-icon>
+                  </i>
+                  <div class="label">1</div>
+                  <div class="desc">调休</div>
+                </a>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-sidenav-content>
+  <mat-sidenav mode="side" opened position="end">
+    <ion-list>
+      <ion-list-header><span matBadge="15" matBadgeColor="warn" matBadgeOverlap="false">我的待办</span></ion-list-header>
+      <ion-item detail>
+        <ion-label>
+          <h3>招聘前端工程师</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          李刚
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+      <ion-item detail>
+        <ion-label>
+          <h3>张永刚的入厂申请</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          李刚
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+      <ion-item detail lines="none">
+        <ion-label>
+          <h3>招聘JAVA工程师</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          韩梅梅
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+    </ion-list>
+    <mat-divider></mat-divider>
+    <ion-list>
+      <ion-list-header><span matBadge="15" matBadgeColor="primary" matBadgeOverlap="false">我的请求</span></ion-list-header>
+      <ion-item detail>
+        <ion-label>
+          <h3>招聘前端工程师</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          李刚
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+      <ion-item detail>
+        <ion-label>
+          <h3>张永刚的入厂申请</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          李刚
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+      <ion-item detail lines="none">
+        <ion-label>
+          <h3>招聘JAVA工程师</h3>
+          <p>任务需要在 2017-01-12 20:00 前启动</p>
+        </ion-label>
+        <ion-note>
+          韩梅梅
+          <p>2019-12-29</p>
+        </ion-note>
+      </ion-item>
+    </ion-list>
+  </mat-sidenav>
+</mat-sidenav-container>

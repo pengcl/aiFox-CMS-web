@@ -1,0 +1,266 @@
+mat-sidenav-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px;
+  mat-tab-group {
+    height: 100%;
+
+    &::ng-deep {
+      .mat-tab-body-wrapper {
+        min-height: calc(100% - 49px);
+      }
+    }
+
+    mat-grid-list {
+      height: 100%;
+      background: #ededed;
+      mat-grid-tile {
+        background: #fff;
+        .date {
+          position: absolute;
+          left: 10px;
+          top: 5px;
+        }
+      }
+    }
+    mat-sidenav {
+      width: 300px;
+    }
+  }
+  mat-grid-list {
+    height: 100%;
+    background: #ededed;
+    mat-grid-tile {
+      background: #fff;
+      .date {
+        position: absolute;
+        left: 10px;
+        top: 5px;
+      }
+    }
+  }
+  mat-sidenav {
+    width: 300px;
+  }
+}
+
+.menu-item {
+  position: relative;
+
+  .desc {
+    color: #333;
+    font-size: 12px;
+    line-height: 1;
+  }
+}
+
+.setting-box {
+  background-color: #fff;
+  height: 90px;
+  box-sizing: border-box;
+  padding: 15px 15px 15px 90px;
+  position: relative;
+  display: block;
+  transition: all 0.5s;
+  border-radius: 4px;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+  text-decoration: none;
+
+  &:hover {
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .5), 0 1px 1px 0 rgba(0, 0, 0, .36), 0 1px 3px 0 rgba(0, 0, 0, .36);
+
+    & > .icons {
+      animation-name: flipInX;
+      backface-visibility: visible;
+    }
+
+    & > .label {
+      color: #006eff;
+    }
+  }
+
+  & > .icons {
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    background-color: #f4f5fa;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 60px;
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+
+    animation-duration: 1s;
+    animation-fill-mode: both;
+
+    ion-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+
+    &.icon-place {
+      color: #839bd2;
+    }
+
+    &.icon-camera_fill {
+      color: #64c0cb;
+    }
+
+    &.icon-group {
+      color: #d6b993;
+    }
+
+    &.icon-registration {
+      color: #84a8de;
+    }
+
+    &.icon-search {
+      color: #9683d4;
+    }
+
+    &.icon-diary {
+      color: #8ac2ed;
+    }
+
+    &.icon-marge {
+      color: #90ccb6;
+    }
+
+    &.icon-avatar {
+      color: #e58f9d;
+    }
+
+    &.icon-department {
+      color: #839bd2;
+    }
+
+    &.icon-copy {
+      color: #d6b993;
+    }
+
+    &.icon-user {
+      color: #73cad4;
+    }
+
+    &.icon-role {
+      color: #9683d4;
+    }
+
+    &.icon-menu {
+      color: #8ac2ed;
+    }
+
+    &.icon-dictionaries {
+      color: #90ccb6;
+    }
+
+    &.icon-logins {
+      color: #e58f9d;
+    }
+
+    &.icon-log {
+      color: #d6b993;
+    }
+
+    &.icon-moniter {
+      color: #84a8de;
+    }
+
+    &.icon-camera_moniter {
+      color: #9683d4;
+    }
+
+    &.icon-peoples {
+      color: #9683d4;
+    }
+
+    &.icon-organization {
+      color: #84a8de;
+    }
+
+    &.icon-book {
+      color: #e58f9d;
+    }
+
+    &.icon-expert-info {
+      color: #73cad4;
+    }
+
+    &.icon-case {
+      color: #d6b993;
+    }
+
+    &.icon-emergency-setting {
+      color: #837bc4;
+    }
+
+    &.icon-emergency-plan {
+      color: #90ccb6;
+    }
+
+    &.icon-alarm-report {
+      color: #e58f9d;
+    }
+
+    &.icon-report_fill {
+      color: #84a8de;
+    }
+
+    &.icon-map {
+      color: #64c0cb;
+    }
+
+    &.icon-shexiangtou {
+      color: #e58f9d;
+    }
+  }
+
+  .label {
+    font-weight: bold;
+    color: #333;
+    line-height: 1;
+    margin-top: 10px;
+    font-size: 24px;
+  }
+
+  .desc {
+    color: #333;
+    font-size: 12px;
+    line-height: 1;
+    margin-top: 5px;
+
+    .icons {
+      font-size: 16px;
+      margin-left: 8px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  .rate {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+
+    span {
+      display: block;
+      text-align: center;
+
+      &.rate-label {
+        font-size: 12px;
+      }
+
+      &.rate-count {
+        font-size: 36px;
+      }
+    }
+  }
+}
