@@ -25,7 +25,7 @@ import {environment} from '../environments/environment';
   ],
   providers: [
     {provide: 'PREFIX_URL', useValue: environment.PREFIX_URL},
-    {provide: 'FILE_PREFIX_URL', useValue: environment.FILE_PREFIX_URL},
+    {provide: 'PREVIEW_PREFIX_URL', useValue: environment.PREVIEW_PREFIX_URL},
   ],
   bootstrap: [AppComponent]
 })

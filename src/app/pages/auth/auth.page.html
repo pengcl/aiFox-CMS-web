@@ -6,17 +6,18 @@
     <form [formGroup]="form" class="auth-form">
       <mat-form-field>
         <mat-label>用户名</mat-label>
-        <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" formControlName="identifier">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let user of users" [value]="user.name">
-            <span>{{user.name}}</span>
-          </mat-option>
-        </mat-autocomplete>
+        <input formControlName="username" matInput placeholder="请输入账户名">
       </mat-form-field>
       <mat-form-field>
         <mat-label>密码</mat-label>
-        <input type="password" formControlName="password" matInput placeholder="请输入手机号">
+        <input formControlName="password" matInput type="password" placeholder="请输入手机号">
       </mat-form-field>
+      <mat-form-field>
+        <mat-label>验证码</mat-label>
+        <input formControlName="captcha" matInput placeholder="验证码">
+        <img (click)="getRandomImage()" [src]="randomImage" matSuffix>
+      </mat-form-field>
+      <mat-checkbox formControlName="remember_me">自动登录</mat-checkbox>
       <button (click)="login()" type="button" mat-raised-button color="primary">登录</button>
     </form>
   </mat-card-content>

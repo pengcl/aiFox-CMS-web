@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  PREFIX_URL: 'http://192.168.31.92:8080/tv-oa/',
-  FILE_PREFIX_URL: 'http://192.168.31.92:8080/im/'
+  PREFIX_URL: 'http://192.168.24.56:8899/',
+  PREVIEW_PREFIX_URL: 'http://192.168.24.56:8899/onlinePreview/'
 };
 
 /*

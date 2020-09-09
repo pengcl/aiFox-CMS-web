@@ -3,18 +3,23 @@ import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor} from '@angular/com
 import {Observable} from 'rxjs';
 import {AuthService} from '../../pages/auth/auth.service';
 
+const API_WHITE_LIST = [];
+
 @Injectable()
 export class JwtInterceptors implements HttpInterceptor {
   constructor(private authSvc: AuthService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url !== 'api/auth/local') {
-      const JWT = {
+    if (API_WHITE_LIST.indexOf(req.url) === -1) {
+      /*const JWT = {
         Authorization: 'Bearer ' + this.authSvc.token().jwt
+      };*/
+      const TOKEN = {
+        'X-Access-Token': this.authSvc.token() ? this.authSvc.token().jwt : ''
       };
       req = req.clone({
-        setHeaders: JWT
+        setHeaders: TOKEN
       });
     }
     return next.handle(req);

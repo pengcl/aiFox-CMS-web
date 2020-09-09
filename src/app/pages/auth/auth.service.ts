@@ -1,7 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {Observable, Subject} from 'rxjs';
+import {Observable, Subject, of as observableOf} from 'rxjs';
+import {mergeMap as observableMargeMap} from 'rxjs/operators';
 
 import {StorageService} from '../../@core/services/storage.service';
 
@@ -10,7 +11,8 @@ export class AuthService {
   public loginRedirectUrl: string;
   private loginStatus = new Subject<boolean>();
 
-  constructor(private http: HttpClient,
+  constructor(@Inject('PREFIX_URL') private PREFIX_URL,
+              private http: HttpClient,
               private router: Router,
               private storage: StorageService) {
   }
@@ -28,7 +30,15 @@ export class AuthService {
   }
 
   login(body): Observable<any> {
-    return this.http.post('api/auth/local', body);
+    return this.http.post(this.PREFIX_URL + 'sys/login', body);
+  }
+
+  permissions(token): Observable<any> {
+    return this.http.get(this.PREFIX_URL + 'sys/permission/getUserPermissionByToken', {params: {token}});
+  }
+
+  randomImage(currDatetime): Observable<any> {
+    return this.http.get(this.PREFIX_URL + 'sys/randomImage/' + currDatetime, {});
   }
 
   users(): Observable<any> {
@@ -69,8 +79,16 @@ export class AuthService {
     this.loginStatus.next(this.isLogged);
   }
 
-  logout() {
+  logout(token): Observable<any> {
+    return this.http.post(this.PREFIX_URL + `/sys/logout`, {}, {headers: {'X-Access-Token': token}})
+    .pipe(observableMargeMap((res: any) => {
+      this.storage.remove('token');
+      return observableOf(res);
+    }));
+  }
+
+  /*logout() {
     this.storage.remove('token');
     this.router.navigate(['/auth']);
-  }
+  }*/
 }

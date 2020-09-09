@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {MaskModule} from './modules/mask';
 import {DialogModule} from './modules/dialog';
+import {ToastModule} from './modules/toast';
 
 import {throwIfAlreadyLoaded} from './module-import-guard';
 import {INTERCEPTORS} from './interceptors';
@@ -23,7 +24,8 @@ export const CORE_PROVIDERS = [
     RouterModule,
     HttpClientModule,
     MaskModule,
-    DialogModule
+    DialogModule,
+    ToastModule
   ],
   exports: [
     CommonModule,
@@ -32,7 +34,8 @@ export const CORE_PROVIDERS = [
     RouterModule,
     HttpClientModule,
     MaskModule,
-    DialogModule
+    DialogModule,
+    ToastModule
   ],
   declarations: [],
 })
@@ -47,6 +50,6 @@ export class CoreModule {
       providers: [
         ...CORE_PROVIDERS,
       ],
-    } as ModuleWithProviders;
+    } as ModuleWithProviders<CoreModule>;
   }
 }

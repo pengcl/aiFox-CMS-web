@@ -12,7 +12,6 @@ export class AdminDashboardPage {
 
   constructor(private router: Router, private authSvc: AuthService) {
     this.user = authSvc.currentUser;
-    this.router.navigate(['/admin/dashboard/' + authSvc.currentUser.type]);
   }
 
 }
