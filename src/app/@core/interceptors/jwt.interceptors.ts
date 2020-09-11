@@ -1,17 +1,17 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthService} from '../../pages/auth/auth.service';
 
-const API_WHITE_LIST = [];
+const API_WHITE_LIST = ['sys/login', 'sys/permission/getUserPermissionByToken', 'sys/randomImage'];
 
 @Injectable()
 export class JwtInterceptors implements HttpInterceptor {
-  constructor(private authSvc: AuthService) {
+  constructor(@Inject('PREFIX_URL') private PREFIX_URL, private authSvc: AuthService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (API_WHITE_LIST.indexOf(req.url) === -1) {
+    if (!this.isInWhiteList(req.url)) {
       /*const JWT = {
         Authorization: 'Bearer ' + this.authSvc.token().jwt
       };*/
@@ -23,6 +23,17 @@ export class JwtInterceptors implements HttpInterceptor {
       });
     }
     return next.handle(req);
+  }
+
+  // 查询当前请求是否在白名单
+  isInWhiteList(url) {
+    let inWhiteList = false;
+    API_WHITE_LIST.forEach((marchContent) => {
+      if (url.indexOf(marchContent) !== -1) {
+        inWhiteList = true;
+      }
+    });
+    return inWhiteList;
   }
 
   /*intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

@@ -74,4 +74,29 @@ export function color() {
   return colors[index];
 }
 
+/**
+ * File node data with nested structure.
+ * Each node has a filename, and a type or a list of children.
+ */
+export class FileNode {
+  children: FileNode[];
+  filename: string;
+  type: any;
+}
+
+export function treeToNoteTree(menu) {
+  const nodes: FileNode[] = [];
+  menu.forEach(menuItem => {
+    const node = new FileNode();
+    node.filename = menuItem.name;
+    if (menuItem.children && menuItem.children.length > 0) {
+      node.children = treeToNoteTree(menuItem.children);
+    } else {
+      node.type = 'leaf';
+    }
+    nodes.push(node);
+  });
+  return nodes;
+}
+
 

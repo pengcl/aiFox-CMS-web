@@ -30,6 +30,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTreeModule} from '@angular/material/tree';
 
 const MATERIAL_PART = [
   MatButtonModule,
@@ -56,7 +57,8 @@ const MATERIAL_PART = [
   MatButtonToggleModule,
   MatAutocompleteModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatTreeModule
 ];
 
 import {COMPONENTS, ENTRY_COMPONENTS, PIPES} from './index';

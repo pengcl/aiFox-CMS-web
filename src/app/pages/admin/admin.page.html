@@ -1,82 +1,9 @@
 <app-header></app-header>
 <mat-sidenav-container>
   <mat-sidenav mode="side" [opened]="true">
-    <mat-list>
-      <h3 routerLink="/admin/dashboard" routerLinkActive="active" mat-subheader>
-        <mat-icon mat-list-icon>home</mat-icon> 工作台</h3>
-      <mat-divider></mat-divider>
-      <ng-container *ngIf="user.type !== 'supplier' && user.type !== 'employee'">
-        <h3 mat-subheader>
-          <mat-icon mat-list-icon>thumb_up</mat-icon> 供应商
-        </h3>
-        <mat-list-item routerLink="/admin/supplier/list" routerLinkActive="active">
-          <p mat-line>供应商管理</p>
-        </mat-list-item>
-        <mat-list-item>
-          <p mat-line>工时管理</p>
-        </mat-list-item>
-        <mat-list-item>
-          <p mat-line>考核管理</p>
-        </mat-list-item>
-        <mat-list-item>
-          <p mat-line>结算管理</p>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </ng-container>
-      <ng-container>
-        <h3 mat-subheader>
-          <mat-icon mat-list-icon>card_travel</mat-icon> 项目
-        </h3>
-        <mat-list-item routerLink="/admin/project/list" routerLinkActive="active">
-          <p mat-line>{{user.type === 'employee' ? '我的项目' : '我的岗位'}}</p>
-        </mat-list-item>
-        <mat-list-item routerLink="/admin/job/list" routerLinkActive="active">
-          <p mat-line>岗位管理</p>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </ng-container>
-      <ng-container *ngIf="user.type !== 'employee'">
-        <h3 mat-subheader>
-          <mat-icon mat-list-icon>supervisor_account</mat-icon> 外包人员
-        </h3>
-        <mat-list-item routerLink="/admin/employee/list" routerLinkActive="active">
-          <p mat-line>人员管理</p>
-        </mat-list-item>
-        <mat-list-item>
-          <p mat-line>考勤管理</p>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </ng-container>
-      <ng-container *ngIf="user.type === 'employee'">
-        <h3 mat-subheader>
-          <mat-icon mat-list-icon>supervisor_account</mat-icon> 结算与考核
-        </h3>
-        <mat-list-item routerLink="/admin/employee/list" routerLinkActive="active">
-          <p mat-line>我的考勤</p>
-        </mat-list-item>
-        <mat-list-item>
-          <p mat-line>我的考核</p>
-        </mat-list-item>
-        <mat-list-item>
-          <p mat-line>我的结算</p>
-        </mat-list-item>
-      </ng-container>
-      <!--<h3 routerLink="/admin/dashboard" routerLinkActive="active" mat-subheader>
-        <mat-icon mat-list-icon>settings</mat-icon> 设置 <mat-icon slot="end" mat-list-icon>arrow-right</mat-icon>
-      </h3>
-      <mat-list-item>
-        <p mat-line>用户管理</p>
-      </mat-list-item>
-      <mat-list-item>
-        <p mat-line>角色管理</p>
-      </mat-list-item>
-      <mat-list-item>
-        <p mat-line>权限管理</p>
-      </mat-list-item>-->
-    </mat-list>
+    <app-sidebar></app-sidebar>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>
-    <button *ngIf="user.type === 'employee'" (click)="sign()" class="sign-fab" mat-fab color="primary">签到</button>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -26,6 +26,6 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.authSvc.logout('');
+    this.authSvc.logout();
   }
 }
